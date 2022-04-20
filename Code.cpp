@@ -42,7 +42,7 @@ struct date { //код для даты
 		return *this;
 	}
 
-	friend std::ostream& operator <<(std::ostream& out, const date& d) { //для того, чтобы дата выводилась красиво
+	friend std::ostream& operator <<(std::ostream& out, const date& d) { 
 		//out.width(2);
         if (d.day_ < 10)
             out << "0" << d.day_ << ".";
@@ -77,7 +77,7 @@ struct date { //код для даты
 
 class record {
 private:
-	friend class book; //дружественный класс book имеет доступ к приватным полям класса category
+	friend class book; 
 	std::string text_;
 	date date_;
 	std::string category_;
@@ -106,20 +106,20 @@ public:
 
 	void print(int max_length_cat, int max_length_text) {
 		std::cout << "| " << date_ << " | ";
-		std::cout.width(max_length_cat); //выделим некоторое количество пробелов для написания текста в консоль
+		std::cout.width(max_length_cat);
 		std::cout << category_ << " | ";
 		std::cout.width(max_length_text);
 		std::cout << text_ << " | ";
 	}
 
 	friend bool operator <(const record& lhs, const record& rhs) {
-		if (lhs.date_ < rhs.date_) {  //для сравнения категорий используем перегруженный оператор сравнения дат
+		if (lhs.date_ < rhs.date_) {  
 			return true;
 		}
 		return false;
 	}
 
-	friend int menu(book& b); //дружественная функция имеет доступ к приватным полям класса, но не принадлежит классу
+	friend int menu(book& b); 
 };
 
 
@@ -139,22 +139,22 @@ public:
 
 	void push_back(const record& r) {
 		record* temp = new record[count_ + 1];
-		std::copy(records_, records_ + count_, temp); //копирует все данные из одного контейнера (массива) в другой
-		temp[count_] = r; //добавили новую запись в конец
+		std::copy(records_, records_ + count_, temp); 
+		temp[count_] = r; 
 
-		if (records_ != nullptr) {	//тут проверка на пустоту массива, если он пустой его удалять нельзя!!
+		if (records_ != nullptr) {	
 			delete[]records_;
 		}
 
-		++count_;	//переставляем указатели
+		++count_;	
 		records_ = temp;
 	}
 
 	void show_all() {
-		int max_length_cat = 0; //устанавливаем ширину колонок
+		int max_length_cat = 0; 
 		int max_length_text = 0;
 
-		for (size_t i = 0; i < count_; i++) //этот цикл ищет максимальные длины категорий и текстов в записях
+		for (size_t i = 0; i < count_; i++)
 		{
 			if (max_length_cat < records_[i].category_.length()) {
 				max_length_cat = records_[i].category_.length();
@@ -164,21 +164,21 @@ public:
 			}
 		}
 
-		for (size_t i = 0; i < count_; i++) {	//печатаем колонки, чтобы легче использовать массив записей
+		for (size_t i = 0; i < count_; i++) {	
 			records_[i].print(max_length_cat, max_length_text);
 			std::cout << "\n";
 		}
 	}
 
-	const record& operator [] (size_t index) const { //константный оператор обращения по индексу, позволяет только читать по индексу
+	const record& operator [] (size_t index) const { 
 		return records_[index];
 	}
 
-	record& operator [] (size_t index) { //позволяет изменять по индексу
+	record& operator [] (size_t index) { 
 		return records_[index];
 	}
 
-	void edit(const int& index, const record& r) { //изменить по индексу
+	void edit(const int& index, const record& r) { 
 		records_[index] = r;
 	}
 
@@ -210,7 +210,7 @@ public:
 
 };
 
-int menu(book& b) { //код для менюшки
+int menu(book& b) { 
 	int num;
 	std::cout << "1 - Перезаписать массив даннных\n";
 	std::cout << "2 - Посмотреть все записи\n";
@@ -233,7 +233,7 @@ int menu(book& b) { //код для менюшки
 		{
 			std::cout << "\n\nВведите текст\n";
 			std::string text;
-			std::cin.ignore();	//т.к. когда много std::getline, то он лагает, чтобы такого не было, введем эту строчку перед каждым гетлайном
+			std::cin.ignore();	
 			std::getline(std::cin, text);
 			std::cout << "Введите категорию\n";
 			std::string cat;
@@ -249,7 +249,7 @@ int menu(book& b) { //код для менюшки
 
 		return 0;
 	}
-	if (num == 2) { //показ всех записей
+	if (num == 2) { 
 		system("cls");
 		b.show_all();
 		std::cout << "Введите 0, чтобы вернуться в главное меню\n";
@@ -258,14 +258,14 @@ int menu(book& b) { //код для менюшки
 		return 0;
 	}
 
-	if (num == 3) { //сортировка по датам
-		std::sort(b.records_, b.records_ + b.count_);	//std::sort хранится в библиотеке algorithm
+	if (num == 3) { 
+		std::sort(b.records_, b.records_ + b.count_);	
 		system("cls");
 		std::cout << "\nКнига отсортирована\n\n";
 
 		return 0;
 	}
-	if (num == 4) { //смотрим под номером N
+	if (num == 4) { 
 		system("cls");
 		std::cout << "Введите номер записи не больше " << b.count_ << " (нумерация начинается с 1)\n";
 		int index;
@@ -277,7 +277,7 @@ int menu(book& b) { //код для менюшки
 		return 0;
 	}
 
-	if (num == 5) { //меняем под номером N
+	if (num == 5) { 
 		system("cls");
 		std::cout << "Введите номер записи не больше " << b.count_ << " (нумерация начинается с 1)\n";
 		int index;
@@ -312,7 +312,7 @@ int menu(book& b) { //код для менюшки
 			std::cin.ignore();
 			std::getline(std::cin, text);
 			b[index].text_ = text;
-			system("cls"); //очистить консоль от записей
+			system("cls"); 
 			std::cout << "\nИзменения сохранены успешно \n\n";
 			return 0;
 		}
@@ -320,7 +320,7 @@ int menu(book& b) { //код для менюшки
 		return 0;
 	}
 
-	if (num == 6) { //фильтрация
+	if (num == 6) { 
 		system("cls");
 		std::cout << "Введите категорию\n";
 		std::string cat;
@@ -339,15 +339,15 @@ int menu(book& b) { //код для менюшки
 		return 0;
 	}
 
-	if (num == 7) { //"посчитать день с максимальным кол-вом записей"
+	if (num == 7) { 
 		system("cls");
 		int max_count = 0;
 		date max_date;
-		for (size_t i = 0; i < b.count_; i++) //выбираем дату из массива
+		for (size_t i = 0; i < b.count_; i++) 
 		{
 
 			int temp_count = 0;
-			for (size_t j = 0; j < b.count_; j++) //сколько раз эта дата встречалась в массиве
+			for (size_t j = 0; j < b.count_; j++) 
 			{
 				if (b[i].date_ == b[j].date_) {
 					++temp_count;
@@ -366,7 +366,7 @@ int menu(book& b) { //код для менюшки
 	}
 
 
-	if (num == 8) { //добавляем запись
+	if (num == 8) { 
 		std::cout << "Введите текст\n";
 		std::string text;
 		std::cin.ignore();
@@ -379,13 +379,13 @@ int menu(book& b) { //код для менюшки
 		std::string d;
 		std::cin.ignore();
 		std::getline(std::cin, d);
-		b.push_back(record(text, cat, date(d))); //вызовем конструктор записи, чтобы передать параметры и в нем вызовем конструктор даты, чтобы ее добавить
+		b.push_back(record(text, cat, date(d))); 
 		system("cls");
 		std::cout << "\nЗапись добавлена\n\n";
 
 		return 0;
 	}
-	// if (num == 9) { //выход в меню
+	// if (num == 9) { 
 		return -1;
 	// }
 }
