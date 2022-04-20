@@ -92,7 +92,7 @@ public:
 		}
 		return count_found;
 	}
-    
+
 private:
 	record* records_;
 	int count_;
