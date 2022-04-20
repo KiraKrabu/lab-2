@@ -99,12 +99,12 @@ int menu(book& b) {
 		system("cls");
 		cout << "\nКнига отсортирована\n\n";
 		copy.show_all();
-		//delete copy;
 		cout << "Введите 0, чтобы вернуться в главное меню\n";
 		cin >> num;
 		return 0;
 	}
-	if (num == 4) { //смотрим под номером N
+	
+	if (num == 4) { 
 		system("cls");
 		cout << "Введите номер записи не больше " << b.get_count_() << " (нумерация начинается с 1)\n";
 		int index;
@@ -116,7 +116,7 @@ int menu(book& b) {
 		return 0;
 	}
 
-	if (num == 5) { //меняем под номером N
+	if (num == 5) { 
 		system("cls");
 		cout << "Введите номер записи не больше " << b.get_count_() << " (нумерация начинается с 1)\n";
 		int index;
@@ -155,7 +155,7 @@ int menu(book& b) {
 			cin.ignore();
 			getline(cin, text);
 			b[index].set_text_(text);
-			system("cls"); //очистить консоль от записей
+			system("cls");
 			cout << "\nИзменения сохранены успешно\n\n";
 			return 0;
 		}
@@ -163,7 +163,7 @@ int menu(book& b) {
 		return 0;
 	}
 
-	if (num == 6) { //фильтрация
+	if (num == 6) {
 		system("cls");
 		cout << "Введите категорию\n";
 		string cat;
@@ -229,9 +229,9 @@ int menu(book& b) {
 			cout << "Ошибка: Дата введена неверно\n\n";
 		system("cls");
 		cout << "\nЗапись добавлена\n\n";
-
 		return 0;
 	}
+
 	//выход в меню
 	return -1;
 }

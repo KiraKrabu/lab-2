@@ -19,9 +19,11 @@ public:
     record* get_records_() {
         return records_;
     }
+
     int get_count_() {
         return count_;
     }
+
 	void push_back(const record& r) {
 		record* temp = new record[count_ + 1];
 		copy(records_, records_ + count_, temp);
@@ -90,6 +92,7 @@ public:
 		}
 		return count_found;
 	}
+    
 private:
 	record* records_;
 	int count_;
