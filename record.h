@@ -4,11 +4,6 @@
 using namespace std;
 
 class record {
-private:
-	friend class book;
-	string text_;
-	date date_;
-	string category_;
 public:
 	record() {}
 	record(const string& t, const string& cat, const date& d) :text_(t), date_(d), category_(cat) {}
@@ -67,5 +62,11 @@ public:
 			return true;
 		}
 		return false;
-	}
+    }
+
+private:
+	friend class book;
+	string text_;
+	date date_;
+	string category_;
 };
