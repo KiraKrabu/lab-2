@@ -214,6 +214,7 @@ void menu() {
     cout << "7. Читать данные из файла" << endl;
     cout << "8. Посчитать по датам" << endl;
     cout << "9. Посмотреть под номером" << endl;
+    cout << "10. Узнать сколько литров воды нужно пить в день" << endl;
     cout << "0. Выход" << endl;
     cout << "Выберите опцию -> ";
 }
@@ -367,6 +368,15 @@ void disp_N(notebooks& nbs) {
     }
 }
 
+void water_dr() {
+    cout << "Введите ваш вес: ";
+    float weight;
+    cin >> weight;
+    weight *= 0.03;
+    cout << "Вам нужно выпить " << weight << " " << "литров в день!" << endl;
+}
+
+
 bool process(notebooks &nbs) {
     menu();    
     int choice; cin >> choice;
@@ -391,6 +401,8 @@ bool process(notebooks &nbs) {
         max_data_count(nbs); break;
     case 9:
         disp_N(nbs); break;
+    case 10: 
+        water_dr(); break;
     }
     return 1 <= choice && choice <= 9;
 }
